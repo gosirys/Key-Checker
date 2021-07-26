@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"os"
 )
 
 const (
@@ -42,7 +43,12 @@ Version = 1.0.0
 }
 
 func show_list() {
-	file, _ := ioutil.ReadFile("database/data.json")
+
+	go_env_path := os.Getenv("GOPATH")
+	db_path := go_env_path + "/src/Key-Checker/database/data.json"
+
+	file, _ := ioutil.ReadFile(db_path)
+	
 	_ = json.Unmarshal([]byte(file), &arr)
 
 	for i, checkers := range arr {
